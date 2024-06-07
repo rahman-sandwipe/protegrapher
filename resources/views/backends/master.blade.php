@@ -18,7 +18,9 @@
         
 		<!-- Overlay For Sidebars -->
 		<div id="wrapper">
-			
+            @guest
+            @else
+		
             <!--  Navbar  -->
             @include('backends.inc.navbar')
             
@@ -26,8 +28,9 @@
             <!--  Navbar  -->
             @include('backends.inc.sidebar')
 			
-
+            @endguest
             @yield('dashboard_layouts')
+			@yield('page_scripts')
 		</div>
 		<!-- Javascript -->
 		@include('backends.inc.scripts')
