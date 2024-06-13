@@ -94,7 +94,11 @@
                                     <i class="fa fa-user"></i> <span>Profile</span>
                                 </a>
                             </li>
-                            <li><a href="javascript:void(0);"><i class="icon-equalizer"></i> <span>Preferences</span></a></li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <i class="icon-equalizer"></i> <span>Preferences</span>
+                                </a>
+                            </li>
                             <li><a href="javascript:void(0);"><i class="icon-lock"></i> <span>Privacy</span></a></li>
                             <li><a href="javascript:void(0);"><i class="icon-bell"></i> <span>Notifications</span></a></li>
                         </ul>

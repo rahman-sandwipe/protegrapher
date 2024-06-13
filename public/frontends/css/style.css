@@ -486,7 +486,7 @@ button:focus {
 }
 
 .home-header-bg {
-	background-image: url("../../images/1920x750x3.jpg");
+	background-image: url("uploads/settings/cover_photo.png");
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -640,7 +640,7 @@ button:focus {
 }
 
 .countup-area {
-	background-image: url(../../images/1920x750x2.jpg);
+	background-image: url('uploads/settings/cover_photo.png');
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;

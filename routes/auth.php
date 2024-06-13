@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\PartialsController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register',                  [RegisteredUserController::class, 'create'])
@@ -42,9 +43,13 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function() {
     Route::put('password',          [PasswordController::class, 'update'])->name('password.update');
     Route::post('logout',           [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile',          [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile',        [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile',       [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    Route::get('/settings',                     [PartialsController::class, 'settings'])->name('settings');
+    Route::post('social-media/insert',          [PartialsController::class, 'socialInsert'])->name('social.insert');
+    Route::post('/social-media/update/{id}',    [PartialsController::class, 'update'])->name('social.update');
 
 
     // Authentication

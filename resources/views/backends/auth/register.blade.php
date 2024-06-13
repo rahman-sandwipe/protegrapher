@@ -10,7 +10,7 @@
                 <div class="col-lg-5 col-md-8 col-sm-12">                        
                     <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>{{ __('Category Lists') }}</h2>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route(auth()->user()->type) }}"><i class="icon-home"></i></a></li>                            
+                        {{-- <li class="breadcrumb-item"><a href="{{ route(auth()->user()->type) }}"><i class="icon-home"></i></a></li>                             --}}
                         <li class="breadcrumb-item active">{{ __('Register News Auth') }}</li>
                     </ul>
                 </div>

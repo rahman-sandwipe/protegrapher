@@ -465,10 +465,10 @@
                                         <h3>Design Team</h3>
                                         <h4>Hangouts</h4>
                                         <ul class="list-unstyled team-info margin-0 p-t-5">
+                                            {{-- <li><img src="http://via.placeholder.com/35x35" alt="Avatar"></li>
                                             <li><img src="http://via.placeholder.com/35x35" alt="Avatar"></li>
                                             <li><img src="http://via.placeholder.com/35x35" alt="Avatar"></li>
-                                            <li><img src="http://via.placeholder.com/35x35" alt="Avatar"></li>
-                                            <li><img src="http://via.placeholder.com/35x35" alt="Avatar"></li>
+                                            <li><img src="http://via.placeholder.com/35x35" alt="Avatar"></li> --}}
                                         </ul>
                                     </div>
                                 </li>

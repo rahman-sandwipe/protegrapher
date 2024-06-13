@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Intervention\Image\ImageManager;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class RegisteredUserController extends Controller
 {
@@ -35,9 +37,19 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::min(5)],
         ]);
 
+        if($request->hasFile('thumbnail')) {
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()).'.'.$request->file('thumbnail')->getClientOriginalExtension();
+            $img = $manager->read($request->file('thumbnail'));
+            $img = $img->resize(300, 300);
+            $img->toJpeg(80)->save(base_path('public/uploads/users/'.$name_gen));
+            $save_url = 'uploads/users/'.$name_gen;
+        } // endif ==========
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'image' => $save_url,
             'password' => Hash::make($request->password),
         ]);
 

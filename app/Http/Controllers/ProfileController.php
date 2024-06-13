@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Intervention\Image\Drivers\Gd\Driver;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -16,7 +18,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('backends.pages.profile.edit', [
+        return view('backends.auth.profile', [
             'user' => $request->user(),
         ]);
     }
@@ -31,6 +33,14 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+        if($request->hasFile('thumbnail')) {
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()).'.'.$request->file('thumbnail')->getClientOriginalExtension();
+            $img = $manager->read($request->file('thumbnail'));
+            $img = $img->resize(300, 300);
+            $img->toJpeg(80)->save(base_path('public/uploads/users/'.$name_gen));
+            $save_url = 'uploads/users/'.$name_gen;
+        } // endif ==========
 
         $request->user()->save();
 
