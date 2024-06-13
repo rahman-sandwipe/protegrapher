@@ -10,7 +10,7 @@ class PartialsController extends Controller
 {
     public function settings() : View {
         $socials=Social::latest()->get();
-        return view('backends.pages.settings.settings', compact('socials'));
+        return view('backends.pages.settings.partialssettings', compact('socials'));
     }
 
 
