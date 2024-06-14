@@ -21,5 +21,6 @@ class Settings extends Model
         'web_timezone',
         'author_mail',
         'author_phone',
+        'author_address'
     ];
 }

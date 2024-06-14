@@ -486,7 +486,7 @@ button:focus {
 }
 
 .home-header-bg {
-	background-image: url("uploads/settings/cover_photo.png");
+	background-image: url("/public/uploads/settings/cover_photo.png");
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -501,7 +501,7 @@ button:focus {
 }
 /* STATIC HEADER  */
 .static-header-bg {
-	background-image: url("../../images/1920x750x4.jpg");
+	background-image: url("/public/uploads/settings/cover_photo.png");
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;

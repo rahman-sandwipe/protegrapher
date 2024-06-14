@@ -35,6 +35,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::group(['prefix'=>'admin','middleware'=>'auth'],function() {
+    Route::get('/',                 [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard',        [DashboardController::class, 'dashboard'])->name('dashboard');
     
     Route::get('confirm-password',  [ConfirmablePasswordController::class, 'show'])->name('password.confirm');
@@ -50,6 +51,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'],function() {
     Route::get('/settings',                     [PartialsController::class, 'settings'])->name('settings');
     Route::post('social-media/insert',          [PartialsController::class, 'socialInsert'])->name('social.insert');
     Route::post('/social-media/update/{id}',    [PartialsController::class, 'update'])->name('social.update');
+    Route::post('/config-site',                 [PartialsController::class, 'configUpdate'])->name('config.update');
 
 
     // Authentication
