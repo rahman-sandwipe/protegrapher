@@ -1,0 +1,63 @@
+name: Staging
+on:
+  push:
+    branches: ["main"]
+jobs:
+  Staging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: ssh to my cpanel
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: minhajjhontu.com
+          username: ${{ secrets.USER_NAME }}
+          password: ${{ secrets.USER_PASSWORD }}
+          #key: {{secrets.key}} you can use private key as well
+          port: 22
+          command_timeout: 30m
+          script: |
+            # installing node using nvm
+            rm -rf ~/.nvm
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+            source ~/.bashrc
+            nvm install --lts
+            source ~/.bashrc
+            
+            cd minhajjhontu.com
+            
+            # Add some environment variables so git doesn't hang up
+            export GIT_TRACE_PACKET=1
+            export GIT_TRACE=1
+            export GIT_CURL_VERBOSE=1
+            
+            # You might also want to add your github key if the repo is private or 
+            # you are using ssh to clone the repo. Uncomment them below if you need to add ssh key and start ssh agent
+            #ssh-add ~/.ssh/my_github_key
+            #eval "$(ssh-agent -s)"
+            
+            # Stashes all changes from previos updates
+            # Make sure to gitignore the files you wanto to keep
+            git stash -u
+            git pull origin main
+            
+            # Installing node modules, building assets & deleting the node_modules, node and npm
+            npm i
+            npm run build
+            rm -rf node_modules
+            rm -rf ~/.nvm
+            
+            # Updating composer and optimizing files
+            composer update
+            php artisan optimize:clear
+            php artisan event:cache
+            php artisan route:cache
+            php artisan view:cache
+            
+            # Migrate any new migrations, --force to disable the prompt in production
+            php artisan migrate --force
+            
+            # Remove the previos storage link and link again for file related issues
+            # You might also want to remove any custom disk that you have created in config/filesystems.php
+            rm -rf public/storage
+            php artisan storage:link
